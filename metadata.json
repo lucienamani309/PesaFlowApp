@@ -1,0 +1,6 @@
+{
+  "name": "PesaFlow",
+  "description": "Une solution de gestion de dépenses mensuelle individuelle, adaptée aux réalités africaines (offline support, mobile-first, revenus irréguliers).",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}

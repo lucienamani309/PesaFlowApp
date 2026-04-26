@@ -1,0 +1,67 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile information and current budget settings",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "currency": { "type": "string", "default": "FCFA" },
+        "hasCompletedOnboarding": { "type": "boolean" },
+        "monthlyIncome": { "type": "number" },
+        "budgetRule": { "type": "string", "enum": ["50/30/20", "custom"] },
+        "budgetLines": { "type": "array" },
+        "savingsGoal": { "type": "number" }
+      },
+      "required": ["uid", "email"]
+    },
+    "MonthlyBudget": {
+      "title": "Monthly Budget",
+      "description": "A snapshot of a budget for a specific month",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "month": { "type": "number", "description": "Month index 0-11" },
+        "year": { "type": "number" },
+        "income": { "type": "number" },
+        "rule": { "type": "string" },
+        "lines": { "type": "array" },
+        "status": { "type": "string", "enum": ["active", "archived"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "month", "year", "income", "rule", "lines", "status"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "A single expense entry",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "date": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "amount", "category", "date"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User's private profile"
+    },
+    "/monthlyBudgets/{budgetId}": {
+      "schema": "MonthlyBudget",
+      "description": "Snapshots of monthly budgets"
+    },
+    "/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Global collection of expenses"
+    }
+  }
+}
